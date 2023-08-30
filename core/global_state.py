@@ -4,9 +4,15 @@ Maintains the global state in a singleton design pattern.
 """
 import threading
 import queue
+import os
 
 
 DEBUG = False
+
+# If there is a file called "DEBUG.txt" in the ".." directory outside of the
+# repo, then turn on the DEBUG mode.
+if os.path.isfile(os.path.join(os.path.dirname(__file__), '..', '..', 'DEBUG.txt')):
+    DEBUG = True
 
 # Path to URL, i.e., http://localhost:33761{BASE_PATH}
 BASE_PATH = '/inspector_dashboard'
@@ -47,7 +53,7 @@ hostname_dict = dict()
 # Where to upload donated data
 INSPECTOR_DATA_DONATION_SERVER = 'https://inspector.engineering.nyu.edu/backend_api'
 if DEBUG:
-    INSPECTOR_DATA_DONATION_SERVER = 'http://localhost:39402/backend_api'
+    INSPECTOR_DATA_DONATION_SERVER = 'http://dannys-macbook-air:39402/backend_api'
 
 DATA_DONATION_URL = INSPECTOR_DATA_DONATION_SERVER + '/donate_data'
 IP_INSIGHTS_URL = INSPECTOR_DATA_DONATION_SERVER + '/get_hostname_from_ip'
